@@ -1,22 +1,26 @@
-#include "main.h"
+#include "holberton.h"
 
 /**
- * puts2 - print  every other character of a string
- * @str:pointer char
- * return:void
+ * rev_string - reverse a string
+ * @s:string
+ * Return:void
  */
-void puts2(char *str)
+void rev_string(char *s)
 {
-	int i, x;
+int i, j;
+char a[500];
 i = 0;
-x = 0;
-	while (str[i++])
+j = 0;
+	while (*(s + i))
 	{
-		x++;
+		*(a + i) = *(s + i);
+		i++;
 	}
-for (i = 0; i < x; i += 2)
-{
-_putchar(*(str + i));
-}
-_putchar('\n');
+	i = i - 1;
+	while (i >= 0)
+	{
+		*(s + i) = *(a + j);
+		j++;
+		i--;
+	}
 }
