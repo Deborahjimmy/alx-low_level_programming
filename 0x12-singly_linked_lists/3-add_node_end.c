@@ -1,31 +1,51 @@
+#include <stdlib.h>
 #include "lists.h"
+#include <string.h>
 
 /**
- * add_nodeint_end - add node at the end of the list
- *@head:pointer to last node
- *@n:integer elment in node
- * Return:new node
+ * add_node_end - Add a new element to a list_t list at the end
+ * @head: Pointer to pointer to start of the list
+ * @str: String to copy to str element of list_t item
+ *
+ * Return: Address of new element, NULL if fails
  */
-listint_t *add_nodeint_end(listint_t **head, const int n)
+list_t *add_node_end(list_t **head, const char *str)
 {
-	listint_t *new, *start;
+	list_t *new;
+	list_t *current;
+	unsigned int i;
 
-	start = *head;
-	new = malloc(sizeof(listint_t));
-	if (new == NULL)
-		return (NULL);
-	new->n = n;
-	new->next = NULL;
+	i = 0;
 	if (*head == NULL)
 	{
+		new = malloc(sizeof(list_t));
+		if (new == NULL)
+			return (NULL);
+		new->next = NULL;
 		*head = new;
-		return (new);
+		new->str = strdup(str);
+		while (str[i] != '\0')
+			i++;
+		new->len = i;
 	}
-	while (start->next)
+	else
 	{
-		start = start->next;
+		current = *head;
+		while (1)
+		{
+			if (current->next == NULL)
+				break;
+			current = current->next;
+		}
+		new = malloc(sizeof(list_t));
+		if (new == NULL)
+			return (NULL);
+		new->next = NULL;
+		current->next = new;
+		new->str = strdup(str);
+		while (str[i] != '\0')
+			i++;
+		new->len = i;
 	}
-
-	start->next = new;
 	return (new);
 }
