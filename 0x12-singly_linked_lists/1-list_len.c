@@ -1,19 +1,21 @@
+#include <stdlib.h>
 #include "lists.h"
 
 /**
- * listint_len - length of a list
- * @h:pointer to list element
- * Return: size of list
+ * list_len - Returns number of elements in a list
+ * @h: Pointer to first element in list
+ *
+ * Return: Number of elements in the list
  */
-size_t listint_len(const listint_t *h)
+size_t list_len(const list_t *h)
 {
-	size_t len = 0;
+	size_t count;
 
-	while (h)
-	{
-		len++;
-		h = h->next;
-	}
-
-	return (len);
+	if (h == NULL)
+		return (0);
+	count = 0;
+	count++;
+	if (h->next != NULL)
+		count += list_len(h->next);
+	return (count);
 }
