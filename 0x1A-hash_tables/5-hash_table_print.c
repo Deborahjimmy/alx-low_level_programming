@@ -1,63 +1,26 @@
-#include "hash_tables.h"
+#include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
+#include "hash_tables.h"
 
 /**
- * hash_table_print_sep - print a separator between elements in a hash table
+ * main - check the code for Holberton School students.
+ *
+ * Return: Always EXIT_SUCCESS.
  */
-void hash_table_print_sep(void)
+int main(void)
 {
-	fputs(", ", stdout);
+    hash_table_t *ht;
+
+    ht = hash_table_create(1024);
+    hash_table_print(ht);
+    hash_table_set(ht, "c", "fun");
+    hash_table_set(ht, "python", "awesome");
+    hash_table_set(ht, "Jennie", "and Jay love asm");
+    hash_table_set(ht, "N", "queens");
+    hash_table_set(ht, "Asterix", "Obelix");
+    hash_table_set(ht, "Betty", "Holberton");
+    hash_table_set(ht, "98", "Battery Street");
+    hash_table_print(ht);
+    return (EXIT_SUCCESS);
 }
-
-/**
- * hash_chain_print - print the elements in a singly-linked list
- * @head: a pointer to the singly-linked list
- */
-void hash_chain_print(const hash_node_t *head)
-{
-	for (;;)
-	{
-		if (head->value)
-			printf("'%s': '%s'", head->key, head->value);
-		else
-			printf("'%s': %s", head->key, head->value);
-
-		head = head->next;
-
-		if (head)
-			hash_table_print_sep();
-		else
-			return;
-	}
-}
-
-/**
- * hash_table_print - print the elements in a hash table
- * @ht: a pointer to the hash table
- */
-void hash_table_print(const hash_table_t *ht)
-{
-	void (*print_sep)() = NULL;
-	hash_node_t **array = NULL;
-	unsigned long int index = 0;
-	unsigned long int size = 0;
-
-	if (ht)
-	{
-		putchar('{');
-		for (array = ht->array, size = ht->size; index < size; ++index)
-		{
-			if (array[index])
-			{
-				if (print_sep)
-					print_sep();
-				else
-					print_sep = hash_table_print_sep;
-
-				hash_chain_print(array[index]);
-			}
-		}
-		puts("}");
-	}
-}
-Footer
